@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Auth Test</title>
+	</head>
+	<body>
+		<script>
+			document.write("<p><b>Note:</b> Web Bluetooth is  <b>" + (navigator.bluetooth?'already enabled':'currently disabled')+ "</b> on this computer.</p>");
+		</script>
+   
+		<script src="https://www.puck-js.com/puck.js"></script>
+ 
+		<a href="#" onclick="generate()">GENERATE</a>
+		<a href="#" onclick="get()">GET KEY</a>
+		<a href="#" onclick="auth()">AUTH</a>
+
+		<script>
+			var key = "";
+			function generate() {
+				Puck.write("var key = (Math.random().toString(36)).slice(2);\n");
+			}
+			function get() {
+				Puck.eval("key",function(x) { key=x; })
+			}
+			function auth() {
+				var x = "";
+				Puck.eval("key",function(x) { 
+					if (x == key) {
+						alert("Authentication successful!");
+					} else {
+						alert("Authentication failed!");
+					}
+				})
+			}
+		</script>  
+     
+	</body>
+</html>
+
